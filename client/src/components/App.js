@@ -1,23 +1,27 @@
 import React, { Component } from 'react'
-import './App.css'
+import { BrowserRouter, Route, Link } from 'react-router-dom'
+
+import Header from './Header'
+import StreamCreate from './streams/StreamCreate'
+import StreamDelete from './streams/StreamDelete'
+import StreamEdit from './streams/StreamEdit'
+import StreamList from './streams/StreamList'
+import StreamShow from './streams/StreamShow'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="ui container">
+        <BrowserRouter>
+          <div>
+            <Header />
+            <Route path="/" exact component={StreamList} />
+            <Route path="/streams/new" exact component={StreamCreate} />
+            <Route path="/streams/edit" exact component={StreamEdit} />
+            <Route path="/streams/delete" exact component={StreamDelete} />
+            <Route path="/streams/show" exact component={StreamShow} />
+          </div>
+        </BrowserRouter>
       </div>
     )
   }
