@@ -21,3 +21,17 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+node_modules/
+*.zip
+.DS_Store
+.idea
+notes.md
+.env
+.eslintrc.js
+.prettierrc
+secret.js
+/build
+/build_*
+_redirects
+.netlify
