@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
+import { connect } from 'react-redux'
+
+import { createStream } from '../../actions/'
 
 class StreamCreate extends Component {
   renderInput = ({ input, label, meta: { error, touched } }) => {
@@ -22,9 +25,12 @@ class StreamCreate extends Component {
     )
   }
 
-  onSubmit(formValues) {}
+  onSubmit = formValues => {
+    this.props.createStream(formValues)
+  }
 
   render() {
+    // const { isSignedIn, userId, createStream } = this.props
     return (
       <form
         className="ui form error"
@@ -43,24 +49,53 @@ class StreamCreate extends Component {
   }
 }
 
-StreamCreate.propTypes = {}
-
-StreamCreate.defaultProps = {}
+StreamCreate.propTypes = {
+  isSignedIn: PropTypes.bool,
+  userId: PropTypes.string,
+  createStream: PropTypes.func,
+  handleSubmit: PropTypes.func,
+}
 
 function validate(formValues) {
   const errors = {}
-  if (!formValues.title || formValues.title.length < 3) {
+  if (
+    formValues.title &&
+    formValues.title.length < 3 &&
+    formValues.title.length > 0
+  ) {
     errors.title = 'Title must contain at least 3 characters'
   }
 
-  if (!formValues.description || formValues.description.length < 3) {
+  if (
+    formValues.description &&
+    formValues.description.length < 3 &&
+    formValues.description.length > 0
+  ) {
     errors.description = 'Description must contain at least 3 characters'
   }
 
   return errors
 }
 
-export default reduxForm({
+function mapStateToProps(state) {
+  return {
+    isSignedIn: state.auth.isSignedIn,
+    userId: state.auth.userId,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createStream: formValues => dispatch(createStream(formValues)),
+  }
+}
+
+const withForm = reduxForm({
   form: 'STREAM/CREATE',
   validate: validate,
 })(StreamCreate)
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withForm)
