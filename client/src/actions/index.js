@@ -1,3 +1,5 @@
+import history from '../history'
+
 import streamsAPI from '../apis/streams'
 import {
   SIGN_IN,
@@ -42,13 +44,18 @@ export function fetchStream(id) {
   }
 }
 
-export function createStream(formValues) {
+export function createStream(userId, formValues) {
   return async dispatch => {
-    const response = await streamsAPI.post('/streams', formValues)
+    const response = await streamsAPI.post('/streams', {
+      ...formValues,
+      userId,
+    })
     dispatch({
       type: STREAM_CREATE,
-      payload: response.data,
+      payload: { ...response.data, userId },
     })
+    // navigate back to streams list page
+    history.push('/')
   }
 }
 
@@ -59,6 +66,8 @@ export function editStream(id, formValues) {
       type: STREAM_EDIT,
       payload: response.data,
     })
+    // navigate back to streams list page
+    history.push('/')
   }
 }
 
