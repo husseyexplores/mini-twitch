@@ -1,5 +1,5 @@
 import _omit from 'lodash/fp/omit'
-import _mapKeys from 'lodash/fp/mapKeys'
+import _mapKeys from 'lodash/mapKeys'
 import {
   STREAM_CREATE,
   STREAM_EDIT,
