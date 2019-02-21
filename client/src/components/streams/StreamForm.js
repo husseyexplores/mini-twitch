@@ -25,7 +25,6 @@ class StreamForm extends Component {
 
   onSubmit = formValues => {
     const { onSubmit } = this.props
-    console.log(onSubmit)
     onSubmit(formValues)
   }
 

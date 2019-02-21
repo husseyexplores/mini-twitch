@@ -23,7 +23,7 @@ class StreamEdit extends Component {
 
   render() {
     const { editStream, stream, userId } = this.props
-    // TODO: CURRY editStream and createStream functions
+
     return (
       <div>
         <h3>Edit Stream</h3>

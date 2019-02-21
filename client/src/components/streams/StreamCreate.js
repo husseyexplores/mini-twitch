@@ -9,16 +9,12 @@ import StreamForm from './StreamForm'
 class StreamCreate extends Component {
   render() {
     const { userId, createStream } = this.props
-    if (userId) window.__zz = _curry(createStream)(userId.id)
 
     return (
       <div>
         <h3>Create Stream</h3>
         {userId ? (
-          <StreamForm
-            onSubmit={_curry(createStream)(userId.id)}
-            userId={userId}
-          />
+          <StreamForm onSubmit={_curry(createStream)(userId)} userId={userId} />
         ) : (
           'Loading Create Form...'
         )}
