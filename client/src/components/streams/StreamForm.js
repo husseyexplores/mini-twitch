@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form'
-import { connect } from 'react-redux'
 
 class StreamForm extends Component {
   renderInput = ({ input, label, meta: { error, touched } }) => {
@@ -29,6 +28,8 @@ class StreamForm extends Component {
   }
 
   render() {
+    const { buttonText = 'Submit' } = this.props
+
     return (
       <form
         className="ui form error"
@@ -41,7 +42,7 @@ class StreamForm extends Component {
           component={this.renderInput}
           label="Enter Description"
         />
-        <button className="ui button primary">Submit</button>
+        <button className="ui button primary">{buttonText}</button>
       </form>
     )
   }
@@ -50,6 +51,7 @@ class StreamForm extends Component {
 StreamForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  buttonText: PropTypes.string,
 }
 
 function validate(formValues) {
