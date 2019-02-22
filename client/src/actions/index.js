@@ -61,7 +61,7 @@ export function createStream(userId, formValues) {
 
 export function editStream(id, formValues) {
   return async dispatch => {
-    const response = await streamsAPI.put(`/streams/${id}`, formValues)
+    const response = await streamsAPI.patch(`/streams/${id}`, formValues)
     dispatch({
       type: STREAM_EDIT,
       payload: response.data,
