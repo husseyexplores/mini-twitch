@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import _curry from 'lodash/fp/curry'
+import _pick from 'lodash/pick'
 
 import { fetchStream, editStream } from '../../actions'
 import StreamForm from './StreamForm'
+import Spinner from '../ui/Spinner'
 
 class StreamEdit extends Component {
   componentDidMount() {
@@ -21,20 +22,26 @@ class StreamEdit extends Component {
     }
   }
 
-  render() {
-    const { editStream, stream, userId } = this.props
+  onSubmit = formValues => {
+    const { stream, editStream } = this.props
+    editStream(stream.id, formValues)
+  }
 
+  render() {
+    const { stream, userId: currentUserId } = this.props
     return (
       <div>
         <h3>Edit Stream</h3>
-        {stream && userId ? (
+        {!stream || !currentUserId ? (
+          <Spinner>Loading</Spinner>
+        ) : stream.userId === currentUserId ? (
           <StreamForm
-            onSubmit={_curry(editStream)(stream.id)}
-            userId={userId}
-            initialValues={stream}
+            onSubmit={this.onSubmit}
+            initialValues={_pick(stream, 'title', 'description')}
+            buttonText="Save"
           />
         ) : (
-          'Loading Edit Form...'
+          'You are not authorized to edit this stream.'
         )}
       </div>
     )

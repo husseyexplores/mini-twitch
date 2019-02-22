@@ -1,22 +1,27 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import _curry from 'lodash/curry'
 
 import { createStream } from '../../actions/'
 import StreamForm from './StreamForm'
+import Spinner from '../ui/Spinner'
 
 class StreamCreate extends Component {
-  render() {
+  onSubmit = formValues => {
     const { userId, createStream } = this.props
+    createStream(userId, formValues)
+  }
+
+  render() {
+    const { userId } = this.props
 
     return (
       <div>
         <h3>Create Stream</h3>
         {userId ? (
-          <StreamForm onSubmit={_curry(createStream)(userId)} userId={userId} />
+          <StreamForm onSubmit={this.onSubmit} />
         ) : (
-          'Loading Create Form...'
+          <Spinner>Loading</Spinner>
         )}
       </div>
     )
