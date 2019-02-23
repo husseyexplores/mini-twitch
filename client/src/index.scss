@@ -1,0 +1,10 @@
+button,
+a,
+input,
+textarea {
+
+  &:focus,
+  &:active {
+    box-shadow: 0 0 0 2px #6ab6f8d5 !important;
+  }
+}
