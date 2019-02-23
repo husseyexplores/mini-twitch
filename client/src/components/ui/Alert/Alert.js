@@ -8,7 +8,7 @@ const modalRoot = document.getElementById('modal-root')
 class Alert extends Component {
   constructor(props) {
     super(props)
-    this.modal = document.createElement('div')
+
     this.state = {
       isOpen: this.props.isOpen,
       showConfirmSpinner: false,
@@ -19,12 +19,10 @@ class Alert extends Component {
   }
 
   componentDidMount() {
-    modalRoot.appendChild(this.modal)
     document.addEventListener('keydown', this.handleKeypress)
   }
 
   componentWillUnmount() {
-    modalRoot.removeChild(this.modal)
     document.removeEventListener('keydown', this.handleKeypress)
   }
 
@@ -136,7 +134,7 @@ class Alert extends Component {
               </div>
             </div>
           </div>,
-          this.modal
+          modalRoot
         )}
       </>
     )
